@@ -1,5 +1,5 @@
 use anyhow::Result;
-use test_bot_internals::{get_channels, simple, Chan};
+use test_bot_internals::{check_reply, get_channels, Chan};
 
 mod test_bot_internals;
 
@@ -19,9 +19,9 @@ fn test_bot() -> Result<()> {
 }
 
 fn test_ping(chan: &Chan) -> Result<()> {
-    simple(chan, "ping".to_string(), format!("<@{}>: Pong!", SELF))
+    check_reply(chan, "ping".to_string(), "Pong!".to_string())
 }
 
 fn test_foo(chan: &Chan) -> Result<()> {
-    simple(chan, "foo".to_string(), format!("<@{}>: Bar!", SELF))
+    check_reply(chan, "foo".to_string(), "Bar!".to_string())
 }

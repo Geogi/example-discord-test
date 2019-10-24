@@ -1,4 +1,4 @@
-use super::{CHANNEL, TARGET, TOKEN};
+use super::{CHANNEL, SELF, TARGET, TOKEN};
 use anyhow::{anyhow, Context as _, Result};
 use serenity::client::{Client, Context, EventHandler};
 use serenity::model::channel::Message;
@@ -22,6 +22,10 @@ pub fn simple(chan: &Chan, cmd: String, expected: String) -> Result<()> {
         .context("An error was reported through the result channel")?;
     assert_eq(result, expected)?;
     Ok(())
+}
+
+pub fn check_reply(chan: &Chan, cmd: String, expected: String) -> Result<()> {
+    simple(chan, cmd, format!("<@{}>: {}", SELF, expected))
 }
 
 pub fn get_channels() -> Chan {
