@@ -1,0 +1,22 @@
+name: Rust
+
+on: [push]
+
+jobs:
+  build:
+    
+    strategy:
+      max-parallel: 1
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build
+      run: cargo build --verbose
+    - name: Run tests
+      run: cargo test --verbose
+      env:
+        DISCORD_TOKEN_BETA: ${{ secrets.DISCORD_TOKEN_BETA }}
+        DISCORD_TOKEN_TESTER: ${{ secrets.DISCORD_TOKEN_TESTER }}
+  
