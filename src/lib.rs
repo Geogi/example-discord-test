@@ -6,9 +6,11 @@ use serenity::framework::standard::{
 };
 use serenity::model::channel::Message;
 use serenity::prelude::{Context, EventHandler};
+use std::env::var;
 
 pub const PREFIX: &str = "~";
-const TOKEN: &str = "NTUzMjE1MzY5NDI3NTUwMjE5.XbE2qA.iPZjhety7JoAwMBhLwTX7OPC4vg";
+const TOKEN_ENV: &str = "DISCORD_TOKEN";
+const TOKEN_ENV_BETA: &str = "DISCORD_TOKEN_BETA";
 
 group!({
     name: "general",
@@ -21,7 +23,10 @@ struct Handler;
 impl EventHandler for Handler {}
 
 pub fn run() -> Result<()> {
-    let mut client = Client::new(TOKEN, Handler).context("Error creating client")?;
+    let token = var(TOKEN_ENV_BETA)
+        .or(var(TOKEN_ENV))
+        .context("Missing bot token environment variable")?;
+    let mut client = Client::new(token, Handler).context("Error creating client")?;
 
     client.with_framework(
         StandardFramework::new()

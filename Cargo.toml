@@ -1,6 +1,6 @@
 [package]
 name = "example-discord-test"
-version = "1.0.0-rc"
+version = "1.0.0"
 authors = ["Paul Blouët <paul@paulblouet.fr>"]
 edition = "2018"
 

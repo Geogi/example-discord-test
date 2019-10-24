@@ -1,10 +1,11 @@
-use super::{CHANNEL, SELF, TARGET, TOKEN};
+use super::{CHANNEL, SELF, TARGET, TOKEN_ENV};
 use anyhow::{anyhow, Context as _, Result};
 use serenity::client::{Client, Context, EventHandler};
 use serenity::model::channel::Message;
 use serenity::model::gateway::Ready;
 use serenity::model::id::ChannelId;
 use serenity::prelude::Mutex;
+use std::env::var;
 use std::fmt::Debug;
 use std::sync::mpsc::{channel, Receiver, Sender};
 use std::sync::Arc;
@@ -42,15 +43,16 @@ pub fn get_channels() -> Chan {
 pub fn run_main_bot(send_result: Sender<Result<String>>) {
     report_failure(
         send_result,
-        ::rust_discord_bot::run(),
+        ::example_discord_test::run(),
         "Cannot set up the main bot",
     );
 }
 
 pub fn run_test_bot(recv_command: Receiver<String>, send_result: Sender<Result<String>>) {
     fn _run(recv_command: Receiver<String>, send_result: Sender<Result<String>>) -> Result<()> {
+        let token = var(TOKEN_ENV).context("Missing test bot token environment variable")?;
         let mut client = Client::new(
-            TOKEN,
+            token,
             Handler {
                 recv_command: Arc::new(Mutex::new(recv_command)),
                 send_result: Arc::new(Mutex::new(send_result)),
@@ -117,7 +119,7 @@ impl EventHandler for Handler {
             for cmd in _recv.iter() {
                 ChannelId(CHANNEL)
                     .send_message(&_ctx.http, |m| {
-                        m.content(format!("{}{}", ::rust_discord_bot::PREFIX, cmd))
+                        m.content(format!("{}{}", ::example_discord_test::PREFIX, cmd))
                     })
                     .with_context(|| format!("Failed to send message for command `{}`", cmd))?;
             }
