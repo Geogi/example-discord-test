@@ -1,6 +1,6 @@
 [package]
-name = "rust-discord-bot"
-version = "0.1.0"
+name = "example-discord-test"
+version = "1.0.0-rc"
 authors = ["Paul Blouët <paul@paulblouet.fr>"]
 edition = "2018"
 

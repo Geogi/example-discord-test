@@ -265,6 +265,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "example-discord-test"
+version = "1.0.0-rc"
+dependencies = [
+ "anyhow 1.0.17 (registry+https://github.com/rust-lang/crates.io-index)",
+ "serenity 0.7.2 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
 name = "failure"
 version = "0.1.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -890,14 +898,6 @@ dependencies = [
  "untrusted 0.7.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "web-sys 0.3.28 (registry+https://github.com/rust-lang/crates.io-index)",
  "winapi 0.3.8 (registry+https://github.com/rust-lang/crates.io-index)",
-]
-
-[[package]]
-name = "rust-discord-bot"
-version = "0.1.0"
-dependencies = [
- "anyhow 1.0.17 (registry+https://github.com/rust-lang/crates.io-index)",
- "serenity 0.7.2 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
